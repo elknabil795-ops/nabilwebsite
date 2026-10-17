@@ -2,158 +2,302 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#080808">
-  <title>Nabil | Dark World</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="script.js" defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Nabil El Kamel | Developer & Tech Enthusiast</title>
+    <meta name="description" content="Official portfolio of Nabil El Kamel from Oujda, Morocco. Explore programming, web development, cybersecurity and robotics projects.">
+    <meta name="author" content="Nabil El Kamel">
+    <meta name="theme-color" content="#0b0b10">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
 </head>
+
 <body>
+<header class="navbar">
+    <a class="logo" href="#home">Nabil<span>.</span></a>
 
-  <div class="fog"></div>
-  <div class="blood-edge left"></div>
-  <div class="blood-edge right"></div>
+    <div class="nav-actions">
+        <button id="themeBtn" class="theme-btn"
+                aria-label="Toggle light and dark theme"
+                title="Change theme">
+            <i class="fa-solid fa-sun"></i>
+        </button>
 
-  <header class="navbar">
-    <a class="logo" href="#home">NABIL<span>_ELK</span></a>
+        <button id="menuBtn" class="menu-btn"
+                aria-label="Open navigation menu">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+    </div>
 
-    <button id="menuBtn" aria-label="Open menu">☰</button>
-
-    <nav id="navLinks">
-      <a href="#home">Home</a>
-      <a href="#about">About</a>
-      <a href="#skills">Skills</a>
-      <a href="#projects">Projects</a>
-      <a href="#contact">Contact</a>
+    <nav>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
     </nav>
+</header>
 
-    <button id="themeBtn" aria-label="Change theme">☀️</button>
-  </header>
-
-  <main>
+<main>
+    <!-- HERO -->
     <section class="hero" id="home">
-      <div class="hero-content">
-        <p class="eyebrow">⚠ ENTER THE DARK WORLD ⚠</p>
+        <div class="hero-content">
+            <p class="eyebrow">
+                <span class="status-dot"></span>
+                STUDENT · TECH ENTHUSIAST
+            </p>
 
-        <h1>WELCOME TO<br><span>NABIL'S WORLD</span></h1>
+            <h1>
+                Hi, I'm <span class="gradient-text">Nabil El Kamel</span>
+            </h1>
 
-        <h2>I am learning <span id="typedText">Programming</span></h2>
+            <h2 class="role-line">
+                I'm learning <span id="typedText">Python</span><span class="cursor">|</span>
+            </h2>
 
-        <p class="description">
-          Student • Developer in Progress • Cybersecurity Enthusiast
-          <br>From Oujda, Morocco 🇲🇦
+            <p class="hero-description">
+                A student from Oujda, Morocco, passionate about programming,
+                software development, networking, cybersecurity and robotics.
+                I learn by building projects and exploring new technologies.
+            </p>
+
+            <div class="hero-buttons">
+                <a href="#projects" class="btn">
+                    <i class="fa-solid fa-code"></i> Explore Projects
+                </a>
+                <a href="#contact" class="btn btn-outline">
+                    Contact Me <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <div class="hero-socials">
+                <a href="https://github.com/elknabil795-ops"
+                   target="_blank" rel="noopener noreferrer"
+                   aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+
+                <a href="https://www.instagram.com/nabil__elk_/"
+                   target="_blank" rel="noopener noreferrer"
+                   aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+
+                <a href="https://x.com/elknabil299269"
+                   target="_blank" rel="noopener noreferrer"
+                   aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+
+                <a href="https://www.linkedin.com/in/nabil-el-kamel-16363b412/"
+                   target="_blank" rel="noopener noreferrer"
+                   aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            </div>
+        </div>
+
+        <div class="hero-visual">
+            <div class="profile-ring">
+                <div class="profile-image">
+                    <img src="nabil.jpg" alt="Nabil El Kamel"
+                         onerror="this.style.display='none';this.nextElementSibling.style.display='grid';">
+                    <span class="profile-fallback">NE</span>
+                </div>
+            </div>
+            <div class="floating-tag tag-top">
+                <i class="fa-brands fa-python"></i> Python
+            </div>
+            <div class="floating-tag tag-bottom">
+                <i class="fa-solid fa-shield-halved"></i> Cybersecurity
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="section reveal" id="about">
+        <p class="eyebrow">GET TO KNOW ME</p>
+        <h2 class="section-title">About <span class="accent">Me</span></h2>
+
+        <p class="section-text">
+            My name is Nabil El Kamel. I'm a student based in Oujda, Morocco.
+            I'm developing my skills in programming, web technologies and
+            computer networking. My long-term ambition is to explore software
+            engineering and robotics while continuing to learn cybersecurity
+            through legal, educational labs.
         </p>
 
-        <a class="btn" href="#projects">ENTER MY WORLD</a>
-        <a class="btn secondary" href="#contact">CONTACT ME</a>
-
-        <div class="socials">
-          <a href="https://github.com/elknabil795-ops" target="_blank" rel="noopener">GitHub ↗</a>
-          <a href="https://www.instagram.com/nabil__elk_/" target="_blank" rel="noopener">Instagram ↗</a>
+        <div class="about-pills">
+            <span><i class="fa-solid fa-location-dot"></i> Oujda, Morocco</span>
+            <span><i class="fa-solid fa-graduation-cap"></i> Student</span>
+            <span><i class="fa-solid fa-code"></i> Learning by building</span>
         </div>
-      </div>
-
-      <div class="ghost ghost-one">👻</div>
-      <div class="ghost ghost-two">👁️</div>
-      <div class="hero-mark">N</div>
     </section>
 
-    <section class="section reveal" id="about">
-      <p class="eyebrow">01 / WHO AM I?</p>
-      <h2>ABOUT <span>ME</span></h2>
-      <p>
-        My name is Nabil. I'm a student from Morocco interested in programming,
-        web development, cybersecurity, networking and robotics.
-        I'm learning step by step and building my own projects.
-      </p>
-    </section>
-
+    <!-- SKILLS -->
     <section class="section reveal" id="skills">
-      <p class="eyebrow">02 / MY TOOLKIT</p>
-      <h2>MY <span>SKILLS</span></h2>
+        <p class="eyebrow">WHAT I'M EXPLORING</p>
+        <h2 class="section-title">My <span class="accent">Skills</span></h2>
+        <p class="section-text">
+            Technologies and subjects I'm currently learning and practising.
+        </p>
 
-      <div class="cards">
-        <article class="card">
-          <span class="card-icon">⌘</span>
-          <h3>Programming</h3>
-          <p>Learning coding fundamentals and building applications.</p>
-        </article>
+        <div class="skills-grid">
+            <article class="skill-card">
+                <div class="skill-icon"><i class="fa-brands fa-python"></i></div>
+                <h3>Python</h3>
+                <p>Programming fundamentals and small applications.</p>
+                <span class="skill-label">Learning</span>
+            </article>
 
-        <article class="card">
-          <span class="card-icon">⌨</span>
-          <h3>Web Development</h3>
-          <p>HTML, CSS and JavaScript.</p>
-        </article>
+            <article class="skill-card">
+                <div class="skill-icon"><i class="fa-brands fa-html5"></i></div>
+                <h3>HTML & CSS</h3>
+                <p>Building and styling responsive websites.</p>
+                <span class="skill-label">Learning</span>
+            </article>
 
-        <article class="card">
-          <span class="card-icon">⌬</span>
-          <h3>Cybersecurity</h3>
-          <p>Learning security in authorised practice labs.</p>
-        </article>
+            <article class="skill-card">
+                <div class="skill-icon"><i class="fa-brands fa-js"></i></div>
+                <h3>JavaScript</h3>
+                <p>Interactive web interfaces and basic scripting.</p>
+                <span class="skill-label">Learning</span>
+            </article>
 
-        <article class="card">
-          <span class="card-icon">◈</span>
-          <h3>Networking</h3>
-          <p>Exploring networks and internet technologies.</p>
-        </article>
+            <article class="skill-card">
+                <div class="skill-icon"><i class="fa-solid fa-network-wired"></i></div>
+                <h3>Networking</h3>
+                <p>Network concepts, IP addressing and network labs.</p>
+                <span class="skill-label">Learning</span>
+            </article>
 
-        <article class="card">
-          <span class="card-icon">⚙</span>
-          <h3>Robotics</h3>
-          <p>A technology field I want to explore in the future.</p>
-        </article>
+            <article class="skill-card">
+                <div class="skill-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                <h3>Cybersecurity</h3>
+                <p>Security fundamentals and authorised lab practice.</p>
+                <span class="skill-label">Learning</span>
+            </article>
 
-        <article class="card">
-          <span class="card-icon">✧</span>
-          <h3>Creative Ideas</h3>
-          <p>Turning ideas into projects through practice.</p>
-        </article>
-      </div>
+            <article class="skill-card">
+                <div class="skill-icon"><i class="fa-solid fa-robot"></i></div>
+                <h3>Robotics</h3>
+                <p>Exploring automation and software for robotics.</p>
+                <span class="skill-label">Future goal</span>
+            </article>
+        </div>
     </section>
 
+    <!-- PROJECTS -->
     <section class="section reveal" id="projects">
-      <p class="eyebrow">03 / MY CREATIONS</p>
-      <h2>MY <span>PROJECTS</span></h2>
+        <p class="eyebrow">THINGS I'M BUILDING</p>
+        <h2 class="section-title">Featured <span class="accent">Projects</span></h2>
+        <p class="section-text">
+            A selection of my personal work and learning projects.
+        </p>
 
-      <div class="cards">
-        <article class="card project">
-          <span class="project-number">PROJECT_01</span>
-          <h3>Horror Portfolio</h3>
-          <p>A dark portfolio with animated horror effects.</p>
-          <a href="https://github.com/elknabil795-ops" target="_blank" rel="noopener">Explore ↗</a>
-        </article>
+        <div class="projects-grid">
+            <article class="project-card">
+                <div class="project-visual visual-red">
+                    <i class="fa-solid fa-laptop-code"></i>
+                    <span>01 / WEB</span>
+                </div>
+                <div class="project-info">
+                    <p class="project-type">WEB DEVELOPMENT</p>
+                    <h3>Personal Portfolio</h3>
+                    <p>A personal website for my profile, skills and projects.</p>
+                    <div class="tech-tags">
+                        <span>HTML</span><span>CSS</span><span>JavaScript</span>
+                    </div>
+                    <a class="project-link"
+                       href="https://github.com/elknabil795-ops"
+                       target="_blank" rel="noopener noreferrer">
+                        View on GitHub <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                </div>
+            </article>
 
-        <article class="card project">
-          <span class="project-number">PROJECT_02</span>
-          <h3>Morocco Cancer Assist</h3>
-          <p>A concept for cancer information and support in Morocco.</p>
-          <a href="https://github.com/elknabil795-ops" target="_blank" rel="noopener">Explore ↗</a>
-        </article>
+            <article class="project-card">
+                <div class="project-visual visual-purple">
+                    <i class="fa-solid fa-heart-pulse"></i>
+                    <span>02 / SOCIAL IMPACT</span>
+                </div>
+                <div class="project-info">
+                    <p class="project-type">WEB PROJECT</p>
+                    <h3>Morocco Cancer Assist</h3>
+                    <p>A project concept focused on cancer information and support in Morocco.</p>
+                    <div class="tech-tags">
+                        <span>HTML</span><span>CSS</span><span>JavaScript</span>
+                    </div>
+                    <a class="project-link"
+                       href="https://github.com/elknabil795-ops"
+                       target="_blank" rel="noopener noreferrer">
+                        Explore my GitHub <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                </div>
+            </article>
 
-        <article class="card project">
-          <span class="project-number">PROJECT_03</span>
-          <h3>Cyber Labs</h3>
-          <p>Learning about networks and defensive security.</p>
-          <a href="https://github.com/elknabil795-ops" target="_blank" rel="noopener">Explore ↗</a>
-        </article>
-      </div>
+            <article class="project-card">
+                <div class="project-visual visual-blue">
+                    <i class="fa-brands fa-python"></i>
+                    <span>03 / CODE</span>
+                </div>
+                <div class="project-info">
+                    <p class="project-type">PROGRAMMING</p>
+                    <h3>Python Experiments</h3>
+                    <p>Small coding exercises and experiments as I develop my skills.</p>
+                    <div class="tech-tags">
+                        <span>Python</span><span>Learning</span>
+                    </div>
+                    <a class="project-link"
+                       href="https://github.com/elknabil795-ops"
+                       target="_blank" rel="noopener noreferrer">
+                        Explore my GitHub <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                </div>
+            </article>
+        </div>
+
+        <a class="btn btn-outline all-projects"
+           href="https://github.com/elknabil795-ops"
+           target="_blank" rel="noopener noreferrer">
+            <i class="fa-brands fa-github"></i> Visit My GitHub
+        </a>
     </section>
 
+    <!-- CONTACT -->
     <section class="section reveal" id="contact">
-      <p class="eyebrow">04 / FIND ME</p>
-      <h2>CONNECT <span>WITH ME</span></h2>
-      <p>Follow my projects and learning journey.</p>
-      <a class="btn" href="https://github.com/elknabil795-ops" target="_blank" rel="noopener">MY GITHUB ↗</a>
+        <p class="eyebrow">LET'S CONNECT</p>
+        <h2 class="section-title">Find Me <span class="accent">Online</span></h2>
+        <p class="section-text">
+            Follow my work and learning journey through my public profiles.
+        </p>
+
+        <div class="social-links">
+            <a class="social instagram"
+               href="https://www.instagram.com/nabil__elk_/"
+               target="_blank" rel="noopener noreferrer"
+               aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+
+            <a class="social x-twitter"
+               href="https://x.com/elknabil299269"
+               target="_blank" rel="noopener noreferrer"
+               aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+
+            <a class="social github"
+               href="https://github.com/elknabil795-ops"
+               target="_blank" rel="noopener noreferrer"
+               aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+
+            <a class="social linkedin"
+               href="https://www.linkedin.com/in/nabil-el-kamel-16363b412/"
+               target="_blank" rel="noopener noreferrer"
+               aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+        </div>
     </section>
-  </main>
+</main>
 
-  <footer>
+<footer class="footer">
+    <a class="logo" href="#home">Nabil<span>.</span></a>
+    <p>Built while learning, with curiosity and ambition.</p>
     <p>© <span id="year"></span> Nabil El Kamel</p>
-    <p class="footer-note">YOU HAVE ENTERED THE DARK WORLD 👁</p>
-  </footer>
-
-  <button id="soundBtn" class="sound-btn">🔊 Enable Heartbeat</button>
-
+</footer>
 </body>
 </html>
