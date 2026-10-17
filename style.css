@@ -878,3 +878,16 @@ body::after {
         animation: none;
     }
 }
+/* Nabil El Kamel animated text */
+.nabil-name {
+    display: inline-block;
+    animation: nabilSpin 4s linear infinite;
+    transform-style: preserve-3d;
+    color: #ff2020;
+    text-shadow: 0 0 8px #ff0000, 0 0 20px #8b0000;
+}
+
+@keyframes nabilSpin {
+    0%   { transform: rotateY(0deg); }
+    100% { transform: rotateY(360deg); }
+}
