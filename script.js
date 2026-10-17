@@ -1,317 +1,260 @@
 
-"use strict";
+/* =================================
+   NABIL HORROR PORTFOLIO
+   JavaScript
+================================= */
 
-// ===== MOBILE MENU =====
+// 1. السنة الحالية
+document.getElementById("year").textContent =
+  new Date().getFullYear();
 
+
+// 2. القائمة ديال الهاتف
 const menuBtn = document.getElementById("menuBtn");
 const navLinks = document.getElementById("navLinks");
 
-if (menuBtn && navLinks) {
-    menuBtn.addEventListener("click", () => {
-        const isOpen = navLinks.classList.toggle("open");
+menuBtn.addEventListener("click", () => {
+  const opened = navLinks.classList.toggle("open");
 
-        menuBtn.setAttribute("aria-expanded", String(isOpen));
-        menuBtn.innerHTML = isOpen
-            ? '<i class="fa-solid fa-xmark"></i>'
-            : '<i class="fa-solid fa-bars"></i>';
-    });
-
-    navLinks.querySelectorAll("a").forEach((link) => {
-        link.addEventListener("click", () => {
-            navLinks.classList.remove("open");
-            menuBtn.setAttribute("aria-expanded", "false");
-            menuBtn.innerHTML = '<i class="fa-solid fa-bars"></i>';
-        });
-    });
-}
-
-// ===== DARK / LIGHT THEME =====
-
-const themeBtn = document.getElementById("themeBtn");
-const themeIcon = themeBtn?.querySelector("i");
-
-function applyTheme(isLight) {
-    document.body.classList.toggle("light-theme", isLight);
-
-    if (themeIcon) {
-        themeIcon.className = isLight
-            ? "fa-solid fa-moon"
-            : "fa-solid fa-sun";
-    }
-
-    if (themeBtn) {
-        themeBtn.setAttribute(
-            "aria-label",
-            isLight ? "Switch to dark theme" : "Switch to light theme"
-        );
-    }
-
-    const themeColor = document.querySelector(
-        'meta[name="theme-color"]'
-    );
-
-    if (themeColor) {
-        themeColor.setAttribute(
-            "content",
-            isLight ? "#f5f5f8" : "#09090d"
-        );
-    }
-}
-
-let savedTheme = null;
-
-try {
-    savedTheme = localStorage.getItem("nabil-theme");
-} catch (error) {
-    // Theme switching still works if storage is unavailable.
-}
-
-applyTheme(savedTheme === "light");
-
-themeBtn?.addEventListener("click", () => {
-    const isLight = !document.body.classList.contains("light-theme");
-
-    applyTheme(isLight);
-
-    try {
-        localStorage.setItem("nabil-theme", isLight ? "light" : "dark");
-    } catch (error) {
-        // The selected theme remains active until the page is refreshed.
-    }
+  menuBtn.textContent = opened ? "✕" : "☰";
+  menuBtn.setAttribute("aria-expanded", String(opened));
 });
 
-// ===== ANIMATED TYPING =====
+navLinks.querySelectorAll("a").forEach(link => {
+  link.addEventListener("click", () => {
+    navLinks.classList.remove("open");
+    menuBtn.textContent = "☰";
+    menuBtn.setAttribute("aria-expanded", "false");
+  });
+});
 
+
+// 3. تبديل الوضع المظلم والفاتح
+const themeBtn = document.getElementById("themeBtn");
+
+themeBtn.addEventListener("click", () => {
+  document.body.classList.toggle("light-theme");
+
+  const lightMode =
+    document.body.classList.contains("light-theme");
+
+  themeBtn.textContent = lightMode ? "🌙" : "☀️";
+});
+
+
+// 4. الكتابة المتحركة
 const typedText = document.getElementById("typedText");
 
-const roles = [
-    "Python",
-    "Web Development",
-    "Cybersecurity",
-    "Networking",
-    "Robotics"
+const words = [
+  "Programming",
+  "Cybersecurity",
+  "Web Development",
+  "Networking",
+  "Robotics"
 ];
 
-let roleIndex = 0;
-let charIndex = 0;
+let wordIndex = 0;
+let letterIndex = 0;
 let deleting = false;
 
-function typeRole() {
-    if (!typedText) return;
+function typeEffect() {
+  const word = words[wordIndex];
 
-    const currentRole = roles[roleIndex];
+  typedText.textContent =
+    word.substring(0, letterIndex);
 
-    if (deleting) {
-        charIndex--;
-    } else {
-        charIndex++;
+  if (!deleting) {
+    letterIndex++;
+
+    if (letterIndex > word.length) {
+      deleting = true;
+      setTimeout(typeEffect, 1200);
+      return;
     }
+  } else {
+    letterIndex--;
 
-    typedText.textContent = currentRole.substring(0, charIndex);
-
-    let delay = deleting ? 45 : 90;
-
-    if (!deleting && charIndex === currentRole.length) {
-        deleting = true;
-        delay = 1300;
-    } else if (deleting && charIndex === 0) {
-        deleting = false;
-        roleIndex = (roleIndex + 1) % roles.length;
-        delay = 350;
+    if (letterIndex <= 0) {
+      letterIndex = 0;
+      deleting = false;
+      wordIndex = (wordIndex + 1) % words.length;
     }
+  }
 
-    setTimeout(typeRole, delay);
+  setTimeout(typeEffect, deleting ? 45 : 100);
 }
 
-if (typedText) {
-    typeRole();
-}
+typeEffect();
 
-// ===== REVEAL SECTIONS ON SCROLL =====
 
-const revealSections = document.querySelectorAll(".reveal");
-
-if ("IntersectionObserver" in window) {
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add("visible");
-                observer.unobserve(entry.target);
-            }
-        });
-    }, {
-        threshold: 0.08
+// 5. إظهار الأقسام ملي توصل ليها
+const revealObserver = new IntersectionObserver(
+  entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+        revealObserver.unobserve(entry.target);
+      }
     });
+  },
+  { threshold: 0.12 }
+);
 
-    revealSections.forEach((section) => observer.observe(section));
-} else {
-    revealSections.forEach((section) => {
-        section.classList.add("visible");
-    });
-}
-
-// ===== AUTOMATIC COPYRIGHT YEAR =====
-
-const yearElement = document.getElementById("year");
-
-if (yearElement) {
-    yearElement.textContent = new Date().getFullYear();
-}
-
-/* ===== HAUNTED GHOST EFFECT ===== */
-
-(() => {
-    if (document.querySelector(".ghost-layer")) return;
-
-    const layer = document.createElement("div");
-    layer.className = "ghost-layer";
-    layer.setAttribute("aria-hidden", "true");
-    document.body.appendChild(layer);
-
-    for (let i = 0; i < 4; i++) {
-        const ghost = document.createElement("div");
-        ghost.className = "ghost";
-
-        ghost.style.left = `${12 + i * 23}%`;
-        ghost.style.top = `${25 + (i % 3) * 20}%`;
-        ghost.style.animationDelay = `${i * -4.5}s`;
-        ghost.style.animationDuration = `${17 + i * 3}s`;
-        ghost.style.transform = `scale(${0.7 + i * 0.12})`;
-
-        layer.appendChild(ghost);
-    }
-})();
-
-document.addEventListener("click", function (event) {
-    const button = event.target.closest("a, button");
-
-    if (!button) return;
-
-    const drop = document.createElement("span");
-    drop.className = "blood-drop";
-
-    drop.style.setProperty(
-        "--drop-position",
-        `${15 + Math.random() * 70}%`
-    );
-
-    button.classList.add("blood-click");
-    button.appendChild(drop);
-
-    setTimeout(() => drop.remove(), 1300);
+document.querySelectorAll(".reveal").forEach(section => {
+  revealObserver.observe(section);
 });
 
-/* ===== HAUNTED GHOST EFFECT ===== */
 
-(() => {
-    if (document.querySelector(".ghost-layer")) return;
+// 6. إنشاء القطرات الحمراء المتحركة
+document.querySelectorAll(".blood-edge").forEach(edge => {
+  for (let i = 0; i < 10; i++) {
+    const drip = document.createElement("span");
 
-    const layer = document.createElement("div");
-    layer.className = "ghost-layer";
-    layer.setAttribute("aria-hidden", "true");
-    document.body.appendChild(layer);
+    drip.className = "drip";
 
-    for (let i = 0; i < 4; i++) {
-        const ghost = document.createElement("div");
-        ghost.className = "ghost";
+    drip.style.setProperty(
+      "--x",
+      `${Math.random() * 85}%`
+    );
 
-        ghost.style.left = `${12 + i * 23}%`;
-        ghost.style.top = `${25 + (i % 3) * 20}%`;
-        ghost.style.animationDelay = `${i * -4.5}s`;
-        ghost.style.animationDuration = `${17 + i * 3}s`;
-        ghost.style.transform = `scale(${0.7 + i * 0.12})`;
+    drip.style.setProperty(
+      "--h",
+      `${30 + Math.random() * 100}px`
+    );
 
-        layer.appendChild(ghost);
+    drip.style.setProperty(
+      "--speed",
+      `${3 + Math.random() * 5}s`
+    );
+
+    drip.style.setProperty(
+      "--delay",
+      `${Math.random() * 6}s`
+    );
+
+    edge.appendChild(drip);
+  }
+});
+
+
+// 7. تأثير أحمر مع الضغط على الأزرار والروابط
+let flashTimeout;
+
+document.addEventListener("click", event => {
+  if (!event.target.closest("a, button")) {
+    return;
+  }
+
+  document.body.classList.remove("horror-click");
+
+  // إعادة تشغيل التأثير
+  void document.body.offsetWidth;
+
+  document.body.classList.add("horror-click");
+
+  clearTimeout(flashTimeout);
+
+  flashTimeout = setTimeout(() => {
+    document.body.classList.remove("horror-click");
+  }, 400);
+});
+
+
+// 8. صوت دقات القلب باستعمال JavaScript
+// الصوت كيبدا غير ملي المستخدم يضغط على الزر
+const soundBtn = document.getElementById("soundBtn");
+
+let audioContext = null;
+let soundEnabled = false;
+let heartbeatTimer = null;
+
+function playThump(frequency, startTime, volume) {
+  const oscillator = audioContext.createOscillator();
+  const gain = audioContext.createGain();
+
+  oscillator.type = "sine";
+
+  oscillator.frequency.setValueAtTime(
+    frequency,
+    startTime
+  );
+
+  oscillator.frequency.exponentialRampToValueAtTime(
+    frequency * 0.65,
+    startTime + 0.12
+  );
+
+  gain.gain.setValueAtTime(0.001, startTime);
+
+  gain.gain.exponentialRampToValueAtTime(
+    volume,
+    startTime + 0.025
+  );
+
+  gain.gain.exponentialRampToValueAtTime(
+    0.001,
+    startTime + 0.18
+  );
+
+  oscillator.connect(gain);
+  gain.connect(audioContext.destination);
+
+  oscillator.start(startTime);
+  oscillator.stop(startTime + 0.2);
+}
+
+function playHeartbeat() {
+  if (!audioContext || audioContext.state !== "running") {
+    return;
+  }
+
+  const now = audioContext.currentTime;
+
+  // دقة أولى وثانية
+  playThump(75, now, 0.22);
+  playThump(58, now + 0.20, 0.16);
+}
+
+soundBtn.addEventListener("click", async () => {
+  try {
+    if (!audioContext) {
+      const AudioContextClass =
+        window.AudioContext || window.webkitAudioContext;
+
+      if (!AudioContextClass) {
+        soundBtn.textContent = "Audio not supported";
+        return;
+      }
+
+      audioContext = new AudioContextClass();
     }
-})();
 
-/* ===== HORROR HEARTBEAT SOUND ===== */
-
-(() => {
-    let audioContext = null;
-    let heartbeatTimer = null;
-    let soundStarted = false;
-
-    function playThump(startTime, volume = 0.7) {
-        if (!audioContext) return;
-
-        const oscillator = audioContext.createOscillator();
-        const gain = audioContext.createGain();
-
-        oscillator.type = "sine";
-        oscillator.frequency.setValueAtTime(90, startTime);
-        oscillator.frequency.exponentialRampToValueAtTime(
-            38, startTime + 0.16
-        );
-
-        gain.gain.setValueAtTime(0.001, startTime);
-        gain.gain.exponentialRampToValueAtTime(
-            volume, startTime + 0.025
-        );
-        gain.gain.exponentialRampToValueAtTime(
-            0.001, startTime + 0.2
-        );
-
-        oscillator.connect(gain);
-        gain.connect(audioContext.destination);
-
-        oscillator.start(startTime);
-        oscillator.stop(startTime + 0.22);
+    if (audioContext.state === "suspended") {
+      await audioContext.resume();
     }
 
-    function playHeartbeat() {
-        if (!audioContext || audioContext.state !== "running") return;
+    soundEnabled = !soundEnabled;
 
-        const now = audioContext.currentTime;
+    if (soundEnabled) {
+      playHeartbeat();
 
-        // Two soft heartbeats: lub-dub
-        playThump(now, 0.55);
-        playThump(now + 0.19, 0.35);
-    }
-
-    async function startSound() {
-        if (!audioContext) {
-            const AudioContextClass =
-                window.AudioContext || window.webkitAudioContext;
-
-            if (!AudioContextClass) return;
-
-            audioContext = new AudioContextClass();
-        }
-
-        if (audioContext.state === "suspended") {
-            await audioContext.resume();
-        }
-
-        if (soundStarted) return;
-
-        soundStarted = true;
-
-        // Start background heartbeat
+      heartbeatTimer = setInterval(() => {
         playHeartbeat();
+      }, 1500);
 
-        heartbeatTimer = setInterval(() => {
-            playHeartbeat();
-        }, 1200);
+      soundBtn.textContent = "🔇 Turn Sound Off";
+    } else {
+      clearInterval(heartbeatTimer);
+      heartbeatTimer = null;
+
+      soundBtn.textContent = "🔊 Enable Heartbeat";
     }
+  } catch (error) {
+    console.error("Audio error:", error);
+    soundBtn.textContent = "Audio unavailable";
+  }
+});
 
-    document.addEventListener("click", async (event) => {
-        const clicked = event.target.closest(
-            "a, button, input[type='button'], input[type='submit']"
-        );
+console.log("👻 Nabil Horror Portfolio loaded successfully!");
 
-        if (!clicked) return;
-
-        try {
-            await startSound();
-
-            // Extra heartbeat on every click
-            if (audioContext && audioContext.state === "running") {
-                playHeartbeat();
-            }
-        } catch (error) {
-            console.warn("Audio could not start:", error);
-        }
-    });
-})();
 
