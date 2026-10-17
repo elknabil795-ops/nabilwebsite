@@ -1,4 +1,3 @@
-
 "use strict";
 
 // ===== MOBILE MENU =====
@@ -157,3 +156,158 @@ const yearElement = document.getElementById("year");
 if (yearElement) {
     yearElement.textContent = new Date().getFullYear();
 }
+
+/* ===== HAUNTED GHOST EFFECT ===== */
+
+(() => {
+    if (document.querySelector(".ghost-layer")) return;
+
+    const layer = document.createElement("div");
+    layer.className = "ghost-layer";
+    layer.setAttribute("aria-hidden", "true");
+    document.body.appendChild(layer);
+
+    for (let i = 0; i < 4; i++) {
+        const ghost = document.createElement("div");
+        ghost.className = "ghost";
+        ghost.style.left = `${12 + i * 23}%`;
+        ghost.style.top = `${25 + (i % 3) * 20}%`;
+        ghost.style.animationDelay = `${i * -4.5}s`;
+        ghost.style.animationDuration = `${17 + i * 3}s`;
+        ghost.style.transform = `scale(${0.7 + i * 0.12})`;
+        layer.appendChild(ghost);
+    }
+})();
+
+/* ===== BLOOD DRIPPING FROM SCREEN EDGES ===== */
+
+(() => {
+    const reducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    if (reducedMotion) return;
+
+    function createBloodDrip() {
+        const drip = document.createElement("span");
+        drip.className = "blood-edge";
+        drip.setAttribute("aria-hidden", "true");
+
+        const fromLeft = Math.random() < 0.5;
+
+        drip.style.left = fromLeft
+            ? `${Math.random() * 14}%`
+            : "auto";
+
+        drip.style.right = fromLeft
+            ? "auto"
+            : `${Math.random() * 14}%`;
+
+        drip.style.setProperty(
+            "--blood-length",
+            `${55 + Math.random() * 145}px`
+        );
+
+        drip.style.setProperty(
+            "--blood-duration",
+            `${3 + Math.random() * 3}s`
+        );
+
+        document.body.appendChild(drip);
+
+        window.setTimeout(() => drip.remove(), 6500);
+    }
+
+    createBloodDrip();
+
+    window.setInterval(() => {
+        if (document.visibilityState === "visible") {
+            createBloodDrip();
+        }
+    }, 1800);
+})();
+
+/* ===== HORROR HEARTBEAT SOUND ===== */
+
+(() => {
+    let audioContext = null;
+    let soundStarted = false;
+
+    function playThump(startTime, volume = 0.7) {
+        if (!audioContext) return;
+
+        const oscillator = audioContext.createOscillator();
+        const gain = audioContext.createGain();
+
+        oscillator.type = "sine";
+
+        oscillator.frequency.setValueAtTime(90, startTime);
+        oscillator.frequency.exponentialRampToValueAtTime(
+            38,
+            startTime + 0.16
+        );
+
+        gain.gain.setValueAtTime(0.001, startTime);
+        gain.gain.exponentialRampToValueAtTime(
+            volume,
+            startTime + 0.025
+        );
+        gain.gain.exponentialRampToValueAtTime(
+            0.001,
+            startTime + 0.2
+        );
+
+        oscillator.connect(gain);
+        gain.connect(audioContext.destination);
+
+        oscillator.start(startTime);
+        oscillator.stop(startTime + 0.22);
+    }
+
+    function playHeartbeat() {
+        if (!audioContext || audioContext.state !== "running") return;
+
+        const now = audioContext.currentTime;
+
+        playThump(now, 0.45);
+        playThump(now + 0.19, 0.3);
+    }
+
+    async function startSound() {
+        if (!audioContext) {
+            const AudioContextClass =
+                window.AudioContext || window.webkitAudioContext;
+
+            if (!AudioContextClass) return;
+
+            audioContext = new AudioContextClass();
+        }
+
+        if (audioContext.state === "suspended") {
+            await audioContext.resume();
+        }
+
+        if (soundStarted) return;
+
+        soundStarted = true;
+
+        playHeartbeat();
+        window.setInterval(playHeartbeat, 1200);
+    }
+
+    // Browsers require a user gesture before starting audio.
+    document.addEventListener("click", async (event) => {
+        const clicked = event.target.closest(
+            "a, button, input[type='button'], input[type='submit']"
+        );
+
+        if (!clicked) return;
+
+        try {
+            await startSound();
+            playHeartbeat();
+        } catch (error) {
+            console.warn("Audio could not start:", error);
+        }
+    });
+})();
