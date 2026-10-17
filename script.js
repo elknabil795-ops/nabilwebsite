@@ -878,3 +878,31 @@ body::after {
         animation: none;
     }
 }
+<script>
+document.addEventListener("click", function(e) {
+    const blood = document.createElement("div");
+
+    blood.style.position = "fixed";
+    blood.style.left = e.clientX + "px";
+    blood.style.top = e.clientY + "px";
+    blood.style.width = "8px";
+    blood.style.height = "8px";
+    blood.style.background = "#b00000";
+    blood.style.borderRadius = "50%";
+    blood.style.boxShadow = "0 0 8px #ff0000";
+    blood.style.pointerEvents = "none";
+    blood.style.zIndex = "99999";
+
+    document.body.appendChild(blood);
+
+    blood.animate([
+        { transform: "translateY(0) scale(1)", opacity: 1 },
+        { transform: "translateY(70px) scale(1.5)", opacity: 0 }
+    ], {
+        duration: 900,
+        easing: "ease-in"
+    });
+
+    setTimeout(() => blood.remove(), 900);
+});
+</script>
